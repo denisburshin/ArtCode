@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Ethereal">
+      <UniqueIdentifier>{03d1b3c6-7040-45b5-95de-87547e577cdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Ethereal">
+      <UniqueIdentifier>{2287d07f-ffaa-4baf-9fd1-ed628be8d53d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Ethereal\Events">
+      <UniqueIdentifier>{c8df0862-fe7f-4085-b8e5-9f258a0f6618}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Ethereal\EventSystem">
+      <UniqueIdentifier>{fd9a5a66-2ec0-4033-86cc-1cbafbbbd858}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Ethereal\Render">
+      <UniqueIdentifier>{7f1c8a6a-cf1f-4520-a493-f49cfe640735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Ethereal\Render">
+      <UniqueIdentifier>{fbc18c08-ec01-4fe4-835f-2e6a72ed6d96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{b15b81f6-e5e5-4df9-b1ca-eb10a31f75da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Ethereal\Dependencies">
+      <UniqueIdentifier>{3a11e60f-b4eb-4038-8e13-f24222c75c56}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Ethereal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CoreApplication.h">
+      <Filter>Header Files\Ethereal</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Header Files\Ethereal</Filter>
+    </ClInclude>
+    <ClInclude Include="Launcher.h">
+      <Filter>Header Files\Ethereal</Filter>
+    </ClInclude>
+    <ClInclude Include="EventSystem.h">
+      <Filter>Header Files\Ethereal\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Header Files\Ethereal</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplicationEvent.h">
+      <Filter>Header Files\Ethereal\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer.h">
+      <Filter>Header Files\Ethereal\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files\Ethereal\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files\Ethereal\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="OrthographicCamera.h">
+      <Filter>Header Files\Ethereal\Render</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source Files\Ethereal</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreApplication.cpp">
+      <Filter>Source Files\Ethereal</Filter>
+    </ClCompile>
+    <ClCompile Include="ApplicationEvent.cpp">
+      <Filter>Source Files\Ethereal\EventSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer.cpp">
+      <Filter>Source Files\Ethereal\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files\Ethereal\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files\Ethereal\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="OrthographicCamera.cpp">
+      <Filter>Source Files\Ethereal\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Libs\Debug\gl.c">
+      <Filter>Source Files\Ethereal\Dependencies</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Default.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="Default.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
