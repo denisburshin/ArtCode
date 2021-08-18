@@ -1,5 +1,4 @@
 #pragma once
 
-#include "Renderer.h"
-#include "CoreApplication.h"
-#include "Launcher.h"
+#include "Ethereal/Render/Renderer.h"
+#include "Ethereal/Launcher.h"

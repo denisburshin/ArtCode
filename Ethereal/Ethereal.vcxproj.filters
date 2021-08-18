@@ -42,68 +42,68 @@
     <ClInclude Include="Ethereal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CoreApplication.h">
+    <ClInclude Include="Ethereal\CoreApplication.h">
       <Filter>Header Files\Ethereal</Filter>
     </ClInclude>
-    <ClInclude Include="Core.h">
+    <ClInclude Include="Ethereal\Core.h">
       <Filter>Header Files\Ethereal</Filter>
     </ClInclude>
-    <ClInclude Include="Launcher.h">
+    <ClInclude Include="Ethereal\Launcher.h">
       <Filter>Header Files\Ethereal</Filter>
     </ClInclude>
-    <ClInclude Include="EventSystem.h">
+    <ClInclude Include="Ethereal\Events\EventSystem.h">
       <Filter>Header Files\Ethereal\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Window.h">
+    <ClInclude Include="Ethereal\Window.h">
       <Filter>Header Files\Ethereal</Filter>
     </ClInclude>
-    <ClInclude Include="ApplicationEvent.h">
+    <ClInclude Include="Ethereal\Events\ApplicationEvent.h">
       <Filter>Header Files\Ethereal\Events</Filter>
     </ClInclude>
-    <ClInclude Include="Buffer.h">
+    <ClInclude Include="Ethereal\Render\Buffer.h">
       <Filter>Header Files\Ethereal\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
+    <ClInclude Include="Ethereal\Render\Shader.h">
       <Filter>Header Files\Ethereal\Render</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
+    <ClInclude Include="Ethereal\Render\Renderer.h">
       <Filter>Header Files\Ethereal\Render</Filter>
     </ClInclude>
-    <ClInclude Include="OrthographicCamera.h">
+    <ClInclude Include="Ethereal\Render\OrthographicCamera.h">
       <Filter>Header Files\Ethereal\Render</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Window.cpp">
+    <ClCompile Include="Ethereal\Window.cpp">
       <Filter>Source Files\Ethereal</Filter>
     </ClCompile>
-    <ClCompile Include="CoreApplication.cpp">
+    <ClCompile Include="Ethereal\CoreApplication.cpp">
       <Filter>Source Files\Ethereal</Filter>
     </ClCompile>
-    <ClCompile Include="ApplicationEvent.cpp">
+    <ClCompile Include="Ethereal\Events\ApplicationEvent.cpp">
       <Filter>Source Files\Ethereal\EventSystem</Filter>
     </ClCompile>
-    <ClCompile Include="Buffer.cpp">
+    <ClCompile Include="Ethereal\Render\Buffer.cpp">
       <Filter>Source Files\Ethereal\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
+    <ClCompile Include="Ethereal\Render\Shader.cpp">
       <Filter>Source Files\Ethereal\Render</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
+    <ClCompile Include="Ethereal\Render\Renderer.cpp">
       <Filter>Source Files\Ethereal\Render</Filter>
     </ClCompile>
-    <ClCompile Include="OrthographicCamera.cpp">
+    <ClCompile Include="Ethereal\Render\OrthographicCamera.cpp">
       <Filter>Source Files\Ethereal\Render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Libs\Debug\gl.c">
-      <Filter>Source Files\Ethereal\Dependencies</Filter>
+    <ClCompile Include="Dependencies\gl.c">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Default.vert">
+    <None Include="Shaders\Default.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="Default.frag">
+    <None Include="Shaders\Default.frag">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>

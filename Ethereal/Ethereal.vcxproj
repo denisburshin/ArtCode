@@ -11,31 +11,31 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ApplicationEvent.h" />
-    <ClInclude Include="Buffer.h" />
-    <ClInclude Include="Core.h" />
-    <ClInclude Include="EventSystem.h" />
-    <ClInclude Include="CoreApplication.h" />
+    <ClInclude Include="Ethereal\Events\ApplicationEvent.h" />
+    <ClInclude Include="Ethereal\Render\Buffer.h" />
+    <ClInclude Include="Ethereal\Core.h" />
+    <ClInclude Include="Ethereal\Events\EventSystem.h" />
+    <ClInclude Include="Ethereal\CoreApplication.h" />
     <ClInclude Include="Ethereal.h" />
-    <ClInclude Include="Launcher.h" />
-    <ClInclude Include="OrthographicCamera.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="Window.h" />
+    <ClInclude Include="Ethereal\Launcher.h" />
+    <ClInclude Include="Ethereal\Render\OrthographicCamera.h" />
+    <ClInclude Include="Ethereal\Render\Renderer.h" />
+    <ClInclude Include="Ethereal\Render\Shader.h" />
+    <ClInclude Include="Ethereal\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Libs\Debug\gl.c" />
-    <ClCompile Include="Buffer.cpp" />
-    <ClCompile Include="CoreApplication.cpp" />
-    <ClCompile Include="ApplicationEvent.cpp" />
-    <ClCompile Include="OrthographicCamera.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Ethereal\Render\Buffer.cpp" />
+    <ClCompile Include="Ethereal\CoreApplication.cpp" />
+    <ClCompile Include="Ethereal\Events\ApplicationEvent.cpp" />
+    <ClCompile Include="Dependencies\gl.c" />
+    <ClCompile Include="Ethereal\Render\OrthographicCamera.cpp" />
+    <ClCompile Include="Ethereal\Render\Renderer.cpp" />
+    <ClCompile Include="Ethereal\Render\Shader.cpp" />
+    <ClCompile Include="Ethereal\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Default.frag" />
-    <None Include="Default.vert" />
+    <None Include="Shaders\Default.frag" />
+    <None Include="Shaders\Default.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <glfw3.h>
 
-#include "EventSystem.h"
+#include "Events/EventSystem.h"
 
 namespace Ethereal
 {
