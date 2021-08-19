@@ -9,10 +9,12 @@ namespace Ethereal
 		sceneData->ProjectionViewMatrix = camera.GetProjectionMatrix() * camera.GetViewMatrix();
 	}
 
-	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Program>& program)
+	void Renderer::Submit(const std::shared_ptr<VertexArray>& vertexArray, const std::shared_ptr<Program>& program,
+		const glm::mat4& transform)
 	{
 		program->Use();
 		program->UploadUniformMat4("u_ProjectionView", sceneData->ProjectionViewMatrix);
+		program->UploadUniformMat4("u_ModelMatrix", transform);	
 		vertexArray->Bind();
 
 		DrawIndexed(vertexArray);

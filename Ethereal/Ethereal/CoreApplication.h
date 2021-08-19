@@ -1,6 +1,8 @@
 #pragma once
 #include "Window.h"
 #include "Events/ApplicationEvent.h"
+#include "IApplication.h"
+#include "Timestep.h"
 
 #include <memory>
 
@@ -8,16 +10,17 @@ int main();
 
 namespace Ethereal
 {
-	
 	class CoreApplication
 	{
 	public:
 		CoreApplication();
-		virtual ~CoreApplication() = default;
+		~CoreApplication();
 
 		void OnEvent(Event& e);
 
-		virtual void OnUpdate() = 0;
+		void OnUpdate();
+
+		void PushApplication(IApplication* app);
 
 	private:
 		void Run();
@@ -25,6 +28,9 @@ namespace Ethereal
 	private:
 		bool running;
 		std::unique_ptr<Window> window;
+		IApplication* application;
+		Timestep timestep;
+		float lastTime;
 		static CoreApplication* appInstance;
 	private:
 		friend int ::main();

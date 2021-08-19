@@ -12,6 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ethereal\Events\ApplicationEvent.h" />
+    <ClInclude Include="Ethereal\IApplication.h" />
+    <ClInclude Include="Ethereal\KeyCodes.h" />
     <ClInclude Include="Ethereal\Render\Buffer.h" />
     <ClInclude Include="Ethereal\Core.h" />
     <ClInclude Include="Ethereal\Events\EventSystem.h" />
@@ -22,6 +24,8 @@
     <ClInclude Include="Ethereal\Render\Renderer.h" />
     <ClInclude Include="Ethereal\Render\Shader.h" />
     <ClInclude Include="Ethereal\Window.h" />
+    <ClInclude Include="Ethereal\Events\KeyEvent.h" />
+    <ClInclude Include="Ethereal\Timestep.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ethereal\Render\Buffer.cpp" />
@@ -32,10 +36,8 @@
     <ClCompile Include="Ethereal\Render\Renderer.cpp" />
     <ClCompile Include="Ethereal\Render\Shader.cpp" />
     <ClCompile Include="Ethereal\Window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Shaders\Default.frag" />
-    <None Include="Shaders\Default.vert" />
+    <ClCompile Include="Ethereal\Events\KeyEvent.cpp" />
+    <ClCompile Include="Ethereal\Timestep.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

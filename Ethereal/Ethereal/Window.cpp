@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "Events/ApplicationEvent.h"
+#include "Events/KeyEvent.h"
 
 namespace Ethereal
 {
@@ -41,15 +42,14 @@ namespace Ethereal
 
 		glfwSetWindowUserPointer(window, &data);
 
-
-		//glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
-		//	{
-		//		Data& data = *(static_cast<Data*>(glfwGetWindowUserPointer(window)));
-		//
-		//		KeyPressed event(key);
-		//
-		//		data.callback(event);
-		//	});
+		glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
+			{
+				Data& data = *(static_cast<Data*>(glfwGetWindowUserPointer(window)));
+		
+				KeyEvent event(key);
+		
+				data.callback(event);
+			});
 
 		glfwSetWindowCloseCallback(window, [](GLFWwindow* window)
 			{
@@ -63,6 +63,13 @@ namespace Ethereal
 	{
 		glfwPollEvents();
 		glfwSwapBuffers(window);
+	}
+
+	void Window::SetVSync(bool enabled)
+	{
+		glfwSwapInterval(enabled);
+
+		data.VSync = enabled;
 	}
 
 	void Window::SetCurrent(GLFWwindow* window)

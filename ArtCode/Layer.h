@@ -1,13 +1,17 @@
 #pragma once
 #include <Ethereal.h>
 
-class Application final : public Ethereal::CoreApplication
+class Layer final : public Ethereal::IApplication
 {
 public:
-	Application();
-	~Application() = default;
+	Layer();
+	~Layer() = default;
 
-	void OnUpdate() override;
+	void OnUpdate(Ethereal::Timestep timestep) override;
+	void OnEvent(Ethereal::Event& event) override;
+
+	bool OnKeyEvent(Ethereal::KeyEvent& event) override;
+
 private:
 	std::shared_ptr<Ethereal::Program> program;
 	std::shared_ptr<Ethereal::VertexArray> VAO;
@@ -15,4 +19,5 @@ private:
 	std::shared_ptr<Ethereal::IndexBuffer> IBO;
 
 	Ethereal::OrthographicCamera camera;
+	glm::vec3 transform;
 };

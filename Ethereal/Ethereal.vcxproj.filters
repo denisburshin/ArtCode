@@ -72,6 +72,18 @@
     <ClInclude Include="Ethereal\Render\OrthographicCamera.h">
       <Filter>Header Files\Ethereal\Render</Filter>
     </ClInclude>
+    <ClInclude Include="Ethereal\KeyCodes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ethereal\IApplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ethereal\Events\KeyEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ethereal\Timestep.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Ethereal\Window.cpp">
@@ -98,13 +110,11 @@
     <ClCompile Include="Dependencies\gl.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Shaders\Default.vert">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="Shaders\Default.frag">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
+    <ClCompile Include="Ethereal\Events\KeyEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ethereal\Timestep.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

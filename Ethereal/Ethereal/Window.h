@@ -28,6 +28,8 @@ namespace Ethereal
 
 		void Update();
 
+		void SetVSync(bool enabled = false);
+
 		static void SetCurrent(GLFWwindow* window);
 
 		void SetEventCallback(const EventCallback& callback);
@@ -42,6 +44,8 @@ namespace Ethereal
 		{
 			int width, height;
 			std::string title;
+
+			bool VSync;
 
 			EventCallback callback;
 		} data;
