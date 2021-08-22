@@ -1,0 +1,6 @@
+[submodule "Ethereal/Vendor/GLFW"]
+	path = Ethereal/Vendor/GLFW
+	url = https://github.com/glfw/glfw.git
+[submodule "Ethereal/Vendor/GLM"]
+	path = Ethereal/Vendor/GLM
+	url = https://github.com/g-truc/glm.git
