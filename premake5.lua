@@ -22,7 +22,7 @@ project "Ethereal"
 	language "C++"
 
 	targetdir ("build/" .. outdir .. "/%{prj.name}")
-	objdir ("buil-int/" .. outdir .. "/%{prj.name}")
+	objdir ("build-int/" .. outdir .. "/%{prj.name}")
 
 	files 
 	{
@@ -68,7 +68,7 @@ project "ArtCode"
 	language "C++"
 
 	targetdir ("build/" .. outdir .. "/%{prj.name}")
-	objdir ("buil-int/" .. outdir .. "/%{prj.name}")
+	objdir ("build-int/" .. outdir .. "/%{prj.name}")
 
 	files 
 	{	

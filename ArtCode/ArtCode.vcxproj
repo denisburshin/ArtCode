@@ -30,7 +30,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>..\build\Debug-x86_64\ArtCode\</OutDir>
-    <IntDir>..\buil-int\Debug-x86_64\ArtCode\</IntDir>
+    <IntDir>..\build-int\Debug-x86_64\ArtCode\</IntDir>
     <TargetName>ArtCode</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>

@@ -29,7 +29,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>..\build\Debug-x86_64\Ethereal\</OutDir>
-    <IntDir>..\buil-int\Debug-x86_64\Ethereal\</IntDir>
+    <IntDir>..\build-int\Debug-x86_64\Ethereal\</IntDir>
     <TargetName>Ethereal</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
