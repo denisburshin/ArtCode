@@ -47,8 +47,8 @@ Generated\ Files/
 *.sln
 
 # Build files
-build
-build-int
+build/
+build-int/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
