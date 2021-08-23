@@ -1,5 +1,5 @@
 # ArtCode
-ArtCode is a early-stage 3D/2D scene creation tool using modern OpenGL.
+ArtCode is an early-stage 3D/2D scene creation tool using modern OpenGL.
 
 # Features
 
