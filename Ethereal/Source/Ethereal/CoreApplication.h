@@ -2,7 +2,6 @@
 #include <Ethereal/Window.h>
 #include <Ethereal/Events/ApplicationEvent.h>
 #include <Ethereal/IApplication.h>
-#include <Ethereal/Timestep.h>
 
 #include <memory>
 
@@ -29,8 +28,7 @@ namespace Ethereal
 		bool running;
 		std::unique_ptr<Window> window;
 		IApplication* application;
-		Timestep timestep;
-		float lastTime;
+	private:
 		static CoreApplication* appInstance;
 	private:
 		friend int ::main();

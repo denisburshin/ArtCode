@@ -5,3 +5,5 @@
 #include <Ethereal/KeyCodes.h>
 
 #include <Ethereal/Render/Renderer.h>
+
+#include <Ethereal/GUI/GUI.h>

@@ -32,7 +32,7 @@ Layer::Layer()
 	VAO->AddIndexBuffer(IBO);
 }
 
-void Layer::OnUpdate(Ethereal::Timestep timestep)
+void Layer::OnUpdate()
 {
 	Ethereal::Renderer::SetClearColor({ 0.0f, 0.0f, 0.0f, 1.0f });
 	Ethereal::Renderer::ClearColor();

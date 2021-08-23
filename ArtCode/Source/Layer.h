@@ -7,7 +7,7 @@ public:
 	Layer();
 	~Layer() = default;
 
-	void OnUpdate(Ethereal::Timestep timestep) override;
+	void OnUpdate() override;
 	void OnEvent(Ethereal::Event& event) override;
 
 	bool OnKeyEvent(Ethereal::KeyEvent& event) override;

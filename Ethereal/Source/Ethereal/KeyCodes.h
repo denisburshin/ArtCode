@@ -1,5 +1,13 @@
 #pragma once
 
+enum class Key
+{
+	A = 65,
+	D = 68,
+	S = 83,
+	W = 87
+};
+
 constexpr auto KEY_SPACE = 32;
 constexpr auto KEY_APOSTROPHE = 39;  /* ' */
 constexpr auto KEY_COMMA = 44;       /* , */

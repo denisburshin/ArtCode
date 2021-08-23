@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Ethereal/Events/KeyEvent.h>
-#include <Ethereal/Timestep.h>
 
 namespace Ethereal
 {
@@ -11,7 +10,7 @@ namespace Ethereal
 		IApplication() = default;
 		virtual ~IApplication() = default;
 
-		virtual void OnUpdate(Timestep timestep) = 0;
+		virtual void OnUpdate() = 0;
 		virtual void OnEvent(Event& event) = 0;
 
 		virtual bool OnKeyEvent(Ethereal::KeyEvent& event) = 0;

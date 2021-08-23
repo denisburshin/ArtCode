@@ -11,10 +11,12 @@ outdir = "%{cfg.buildcfg}-%{cfg.architecture}"
 includedir = {}
 includedir["glfw"] = "Ethereal/Vendor/GLFW/include"
 includedir["glad"] = "Ethereal/Vendor/GLAD/include"
+includedir["imgui"] = "Ethereal/Vendor/ImGUI"
 includedir["glm"] = "Ethereal/Vendor/GLM"
 
 include "Ethereal/Vendor/GLFW"
 include "Ethereal/Vendor/GLAD"
+include "Ethereal/Vendor/ImGUI"
 
 project "Ethereal"
 	location "Ethereal"
@@ -30,7 +32,7 @@ project "Ethereal"
 		"%{prj.name}/Source/**.h",
 		"%{prj.name}/Source/**.cpp",
 		"%{prj.name}/Vendor/GLM/glm/**.hpp",
-		"%{prj.name}/Vendor/GLM/glm/**.inl"
+		"%{prj.name}/Vendor/GLM/glm/**.inl",
 	}
 
 	removefiles
@@ -43,13 +45,15 @@ project "Ethereal"
 		"%{prj.name}/Source",
 		"%{includedir.glfw}",
 		"%{includedir.glad}",
-		"%{includedir.glm}"
+		"%{includedir.glm}",
+		"%{includedir.imgui}"
 	}
 
 	links
 	{
 		"GLFW",
 		"GLAD",
+		"ImGUI",
 		"opengl32.lib"
 	}
 

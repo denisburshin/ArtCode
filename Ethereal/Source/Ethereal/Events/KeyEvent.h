@@ -14,7 +14,6 @@ namespace Ethereal
 
 		static EventType GetStaticType();
 
-
 	private:
 		int key;
 	};

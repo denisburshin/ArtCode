@@ -2,13 +2,13 @@
 #include <GLFW/glfw3.h>
 
 #include <Ethereal/CoreApplication.h>
+#include <Utility/Time.h>
 
 namespace Ethereal
 {
 	CoreApplication* CoreApplication::appInstance = nullptr;
 
 	CoreApplication::CoreApplication()
-		: timestep(0.0f), lastTime(0.0f)
 	{
 		window = Window::Create();
 
@@ -30,6 +30,8 @@ namespace Ethereal
 
 	void CoreApplication::OnEvent(Event& e)
 	{
+		std::cout << Time::GetTime() << ": " << e.GetName() << std::endl;
+
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<CloseEvent>(std::bind(&CoreApplication::Close, this, std::placeholders::_1));
 
@@ -62,11 +64,7 @@ namespace Ethereal
 		running = true;
 		while (running)
 		{
-			float time = (float)glfwGetTime();
-			timestep = time - lastTime;
-			lastTime = time;
-
-			application->OnUpdate(timestep);
+			application->OnUpdate();
 			window->OnUpdate();
 		}
 	}

@@ -1,6 +1,7 @@
 #include <Platform/WindowsWindow.h>
 #include <Ethereal/Events/ApplicationEvent.h>
 #include <Ethereal/Events/KeyEvent.h>
+#include <Ethereal/Events/MouseEvent.h>
 
 namespace Ethereal
 {
@@ -64,6 +65,13 @@ namespace Ethereal
 			{
 				Data& data = *(static_cast<Data*>(glfwGetWindowUserPointer(WindowsWindow)));
 				CloseEvent event;
+				data.callback(event);
+			});
+
+		glfwSetCursorPosCallback(window, [](GLFWwindow* WindowsWindow, double x, double y)
+			{
+				Data& data = *(static_cast<Data*>(glfwGetWindowUserPointer(WindowsWindow)));
+				MouseEvent event((float)x, (float)y);
 				data.callback(event);
 			});
 	}
