@@ -8,7 +8,7 @@ namespace Ethereal
 		int width, height;
 		std::string title;
 
-		Properties(int w = 1280, int h = 720, const std::string& title = "OpenGL");
+		Properties(int w = 1280, int h = 720, const std::string& title = "ArtCode");
 	};
 
 	class Window

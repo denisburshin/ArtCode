@@ -12,6 +12,8 @@ public:
 
 	bool OnKeyEvent(Ethereal::KeyEvent& event) override;
 
+	void OnGUIRender() override;
+
 private:
 	std::shared_ptr<Ethereal::Shader> shader;
 	std::shared_ptr<Ethereal::VertexArray> VAO;
@@ -19,5 +21,6 @@ private:
 	std::shared_ptr<Ethereal::IndexBuffer> IBO;
 
 	Ethereal::OrthographicCamera camera;
-	glm::vec3 transform;
+	glm::vec3 transform, squareColor;
+	glm::vec4 bgColor;
 };

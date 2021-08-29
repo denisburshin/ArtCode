@@ -2,7 +2,7 @@
 
 #include <Ethereal/IApplication.h>
 
-#include <Ethereal/KeyCodes.h>
+#include <Ethereal/Events/KeyCodes.h>
 
 #include <Ethereal/Render/Renderer.h>
 

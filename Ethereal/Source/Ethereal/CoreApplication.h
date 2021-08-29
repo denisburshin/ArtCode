@@ -2,7 +2,7 @@
 #include <Ethereal/Window.h>
 #include <Ethereal/Events/ApplicationEvent.h>
 #include <Ethereal/IApplication.h>
-
+#include <Ethereal/GUI/GUI.h>
 #include <memory>
 
 int main();
@@ -21,12 +21,17 @@ namespace Ethereal
 
 		void PushApplication(IApplication* app);
 
+		static CoreApplication* Get();
+
+		Window& GetWindow();
+
 	private:
 		void Run();
 		bool Close(CloseEvent& e);
 	private:
 		bool running;
 		std::unique_ptr<Window> window;
+		GUI* gui;
 		IApplication* application;
 	private:
 		static CoreApplication* appInstance;

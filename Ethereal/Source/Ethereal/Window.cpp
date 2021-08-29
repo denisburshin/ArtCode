@@ -1,5 +1,5 @@
 #include <Ethereal/Window.h>
-#include <Platform/WindowsWindow.h>
+#include <Platform/Windows/WindowsWindow.h>
 
 namespace Ethereal
 {

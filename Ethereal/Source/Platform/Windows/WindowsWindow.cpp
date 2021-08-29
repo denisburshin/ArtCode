@@ -1,4 +1,5 @@
-#include <Platform/WindowsWindow.h>
+#include <Platform/Windows/WindowsWindow.h>
+#include <Ethereal/Events/KeyCodes.h>
 #include <Ethereal/Events/ApplicationEvent.h>
 #include <Ethereal/Events/KeyEvent.h>
 #include <Ethereal/Events/MouseEvent.h>
@@ -61,6 +62,29 @@ namespace Ethereal
 				data.callback(event);
 			});
 
+		glfwSetMouseButtonCallback(window, [](GLFWwindow* WindowsWindow, int button, int action, int mods) {
+				
+			Data& data = *(static_cast<Data*>(glfwGetWindowUserPointer(WindowsWindow)));
+				
+			switch (auto type = static_cast<InputAction>(action))
+			{
+			case InputAction::Press:
+			{
+				MousePressedEvent event(button, mods);
+				data.callback(event);
+				break;
+			}
+			case InputAction::Release:
+			{
+				MouseReleasedEvent event(button, mods);
+				data.callback(event);
+				break;
+			}
+			default:
+				break;
+			}
+		});
+
 		glfwSetWindowCloseCallback(window, [](GLFWwindow* WindowsWindow)
 			{
 				Data& data = *(static_cast<Data*>(glfwGetWindowUserPointer(WindowsWindow)));
@@ -71,7 +95,7 @@ namespace Ethereal
 		glfwSetCursorPosCallback(window, [](GLFWwindow* WindowsWindow, double x, double y)
 			{
 				Data& data = *(static_cast<Data*>(glfwGetWindowUserPointer(WindowsWindow)));
-				MouseEvent event((float)x, (float)y);
+				MouseMovedEvent event((float)x, (float)y);
 				data.callback(event);
 			});
 	}

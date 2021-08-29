@@ -7,9 +7,9 @@ namespace Ethereal
 {
 	enum class EventType
 	{
-		Close, ResizeWindow,
+		Close, Resize,
 		KeyPressed, KeyReleased,
-		MouseMove, None
+		MouseMove, MousePressed, MouseReleased
 	};
 
 	class Event

@@ -1,18 +1,19 @@
 #pragma once
-
 #include <Ethereal/IApplication.h>
+#include <Ethereal/Events/MouseEvent.h>
 
 namespace Ethereal
 {
-	class GUI : public IApplication
-	{
+	class GUI
+	{ 
 	public:
 		GUI();
-		virtual ~GUI();
+		~GUI();
 
-		void OnUpdate() override;
-		void OnEvent(Event& event) override;
-		virtual bool OnKeyEvent(Ethereal::KeyEvent& event) override;
+		void OnEvent(Event& event) const;
+
+		void Begin();
+		void End();
 	};
 }
 

@@ -1,8 +1,10 @@
 #include <Layer.h>
+#include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 Layer::Layer()
-	: camera(-1.6f, 1.6f, -0.9f, 0.9f), transform(0.0f)
+	: camera(-1.6f, 1.6f, -0.9f, 0.9f), transform(0.0f), squareColor(1.0f), bgColor(0.0f)
 {
 	shader.reset(new Ethereal::Shader("Shaders/Default.vert", "Shaders/Default.frag"));
 
@@ -34,9 +36,12 @@ Layer::Layer()
 
 void Layer::OnUpdate()
 {
-	Ethereal::Renderer::SetClearColor({ 0.0f, 0.0f, 0.0f, 1.0f });
+	Ethereal::Renderer::SetClearColor(bgColor);
 	Ethereal::Renderer::ClearColor();
 	Ethereal::Renderer::BeginScene(camera);
+
+	shader->Use();
+	shader->UploadUniformVec3("u_Color", squareColor);
 
 	glm::mat4 scale = glm::scale(glm::identity<glm::mat4>(), glm::vec3(0.2f, 0.2f, 1.0f));
 
@@ -63,4 +68,12 @@ bool Layer::OnKeyEvent(Ethereal::KeyEvent& event)
 		transform.x += 0.05f;
 
 	return false;
+}
+
+void Layer::OnGUIRender()
+{
+	ImGui::Begin("Settings");
+	ImGui::ColorEdit3("Quad Color", glm::value_ptr(squareColor));
+	ImGui::ColorEdit3("Background Color", glm::value_ptr(bgColor));
+	ImGui::End();
 }

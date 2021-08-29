@@ -122,4 +122,11 @@ namespace Ethereal
 		GLint location = glGetUniformLocation(program, uniform.c_str());
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
+
+	void Shader::UploadUniformVec3(const std::string& uniform, const glm::vec3& vector)
+	{
+		GLint location = glGetUniformLocation(program, uniform.c_str());
+		glUniform3fv(location, 1, glm::value_ptr(vector));
+	}
+
 }

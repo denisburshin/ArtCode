@@ -1,5 +1,17 @@
 #pragma once
 
+enum class InputAction : int
+{
+	Release, Press, Repeat
+};
+
+enum class Mouse : int
+{
+	LeftClick,  
+	RightClick, 
+	MiddleClick
+};
+
 enum class Key
 {
 	A = 65,
@@ -7,6 +19,7 @@ enum class Key
 	S = 83,
 	W = 87
 };
+
 
 constexpr auto KEY_SPACE = 32;
 constexpr auto KEY_APOSTROPHE = 39;  /* ' */

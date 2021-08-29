@@ -1,54 +1,65 @@
 #include <Ethereal/GUI/GUI.h>
-#include <Platform/OpenGL/GUIRenderer.h>
-#include <GLFW/glfw3.h>
+//#include <Platform/OpenGL/GUIRenderer.h>
+
+#include <imgui.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
+#include <Ethereal/CoreApplication.h>
 
 namespace Ethereal
 {
 	GUI::GUI()
 	{
 		ImGui::CreateContext();
-		ImGui::StyleColorsDark();
+		ImGui::StyleColorsLight();
+
+		ImGuiStyle& style = ImGui::GetStyle();
+
+		style.WindowRounding = 6.0f;
+		style.FrameRounding = 6.0f;
+		style.ChildRounding = 6.0f;
+		style.PopupRounding = 6.0f;
 
 		ImGuiIO& io = ImGui::GetIO();
 
 		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
 
+		auto app = CoreApplication::Get();
+		auto window = static_cast<GLFWwindow*>(app->GetWindow().GetNativeWindow());
+
+		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 460");
 	}
 
 	GUI::~GUI()
 	{
-
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
 	}
 
-	void GUI::OnUpdate()
+	void GUI::OnEvent(Event& event) const
 	{
-
 		ImGuiIO& io = ImGui::GetIO();
+		event.handled = io.WantCaptureMouse;
+		event.handled = io.WantCaptureKeyboard;
+	}
 
-		io.DisplaySize = ImVec2(1280, 720);
-
+	void GUI::Begin()
+	{
 		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+
 		ImGui::NewFrame();
+	}
 
-		static bool show = true;
-
-		ImGui::ShowDemoWindow(&show);
+	void GUI::End()
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		io.DisplaySize = ImVec2(1280.0f, 720.0f);
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
 	}
-
-	void GUI::OnEvent(Event& event)
-	{
-
-	}
-
-	bool GUI::OnKeyEvent(Ethereal::KeyEvent& event)
-	{
-		return true;
-	}
-
 };

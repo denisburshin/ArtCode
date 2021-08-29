@@ -21,11 +21,14 @@ namespace Ethereal
 			std::cout << "GLAD INIT ERROR" << std::endl;
 		
 		appInstance = this;
+
+		gui = new GUI();
 	}
 
 	CoreApplication::~CoreApplication()
 	{
 		delete application;
+		delete gui;
 	}
 
 	void CoreApplication::OnEvent(Event& e)
@@ -36,6 +39,7 @@ namespace Ethereal
 		dispatcher.Dispatch<CloseEvent>(std::bind(&CoreApplication::Close, this, std::placeholders::_1));
 
 		application->OnEvent(e);
+		gui->OnEvent(e);
 	}
 
 	void CoreApplication::OnUpdate()
@@ -53,6 +57,16 @@ namespace Ethereal
 		application = app;
 	}
 
+	CoreApplication* CoreApplication::Get()
+	{
+		return appInstance;
+	}
+
+	Window& CoreApplication::GetWindow()
+	{
+		return *window;
+	}
+
 	bool CoreApplication::Close(CloseEvent& e)
 	{
 		running = false;
@@ -65,6 +79,12 @@ namespace Ethereal
 		while (running)
 		{
 			application->OnUpdate();
+
+			gui->Begin();
+			{
+				application->OnGUIRender();
+			}
+			gui->End();
 			window->OnUpdate();
 		}
 	}

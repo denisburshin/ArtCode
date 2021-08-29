@@ -85,7 +85,8 @@ project "ArtCode"
 		"Ethereal",
 		"Ethereal/Source",
 		"%{prj.name}/Source",
-		"%{includedir.glm}"
+		"%{includedir.glm}",
+		"%{includedir.imgui}"
 	}
 
 	links

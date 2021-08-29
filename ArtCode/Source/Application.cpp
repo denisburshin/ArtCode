@@ -6,7 +6,7 @@ class Application : public Ethereal::CoreApplication
 public:
 	Application()
 	{
-		PushApplication(new Ethereal::GUI);
+		PushApplication(new Layer);
 	}
 
 	~Application()
