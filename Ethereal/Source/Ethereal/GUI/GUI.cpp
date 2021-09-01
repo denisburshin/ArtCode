@@ -1,5 +1,4 @@
 #include <Ethereal/GUI/GUI.h>
-//#include <Platform/OpenGL/GUIRenderer.h>
 
 #include <imgui.h>
 #include <backends/imgui_impl_glfw.h>

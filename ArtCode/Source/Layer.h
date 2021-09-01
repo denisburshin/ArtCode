@@ -20,7 +20,11 @@ private:
 	std::shared_ptr<Ethereal::VertexBuffer> VBO;
 	std::shared_ptr<Ethereal::IndexBuffer> IBO;
 
+	std::unique_ptr<Ethereal::Texture> texture;
+
 	Ethereal::OrthographicCamera camera;
-	glm::vec3 transform, squareColor;
+	glm::vec3 transform, squareColor, scale;
 	glm::vec4 bgColor;
+
+	std::string tex_path;
 };

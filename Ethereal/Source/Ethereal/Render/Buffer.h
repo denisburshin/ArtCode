@@ -112,7 +112,6 @@ namespace Ethereal
 		std::vector<std::shared_ptr<VertexBuffer>> vBuffers;
 		std::shared_ptr<IndexBuffer> indexBuffer;
 	};
-
 };
 
 

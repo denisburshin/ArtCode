@@ -129,4 +129,10 @@ namespace Ethereal
 		glUniform3fv(location, 1, glm::value_ptr(vector));
 	}
 
+	void Shader::UploadUniformInt(const std::string& uniform, const int value)
+	{
+		GLint location = glGetUniformLocation(program, uniform.c_str());
+		glUniform1i(location, value);
+	}
+
 }

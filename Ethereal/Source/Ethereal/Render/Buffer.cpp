@@ -78,7 +78,7 @@ namespace Ethereal
 	BufferLayout::BufferLayout(const std::initializer_list<BufferElement>& elements)
 		: _elements(elements), stride(0)
 	{
-
+		CalculateOffset();
 	}
 
 	unsigned int BufferLayout::GetStride() const
@@ -216,6 +216,7 @@ namespace Ethereal
 				element._normalized,
 				layout.GetStride(),
 				(const void*)element.offset);
+			++index;
 		}
 		vBuffers.push_back(vBuffer);
 	}

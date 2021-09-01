@@ -13,6 +13,7 @@ includedir["glfw"] = "Ethereal/Vendor/GLFW/include"
 includedir["glad"] = "Ethereal/Vendor/GLAD/include"
 includedir["imgui"] = "Ethereal/Vendor/ImGUI"
 includedir["glm"] = "Ethereal/Vendor/GLM"
+includedir["stb"] = "Ethereal/Vendor/STB"
 
 include "Ethereal/Vendor/GLFW"
 include "Ethereal/Vendor/GLAD"
@@ -33,6 +34,8 @@ project "Ethereal"
 		"%{prj.name}/Source/**.cpp",
 		"%{prj.name}/Vendor/GLM/glm/**.hpp",
 		"%{prj.name}/Vendor/GLM/glm/**.inl",
+		"%{prj.name}/Vendor/STB/**.h",
+		"%{prj.name}/Vendor/STB/**.cpp"
 	}
 
 	removefiles
@@ -46,7 +49,8 @@ project "Ethereal"
 		"%{includedir.glfw}",
 		"%{includedir.glad}",
 		"%{includedir.glm}",
-		"%{includedir.imgui}"
+		"%{includedir.imgui}",
+		"%{includedir.stb}"
 	}
 
 	links

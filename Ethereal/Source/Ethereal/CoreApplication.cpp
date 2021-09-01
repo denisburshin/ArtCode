@@ -38,8 +38,11 @@ namespace Ethereal
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<CloseEvent>(std::bind(&CoreApplication::Close, this, std::placeholders::_1));
 
-		application->OnEvent(e);
 		gui->OnEvent(e);
+		if (!e.handled)
+		{
+			application->OnEvent(e);
+		}
 	}
 
 	void CoreApplication::OnUpdate()

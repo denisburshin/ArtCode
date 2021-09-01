@@ -5,5 +5,6 @@
 #include <Ethereal/Events/KeyCodes.h>
 
 #include <Ethereal/Render/Renderer.h>
+#include <Ethereal/Render/Texture.h>
 
 #include <Ethereal/GUI/GUI.h>
