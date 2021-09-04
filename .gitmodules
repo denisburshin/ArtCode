@@ -4,3 +4,6 @@
 [submodule "Ethereal/Vendor/GLM"]
 	path = Ethereal/Vendor/GLM
 	url = https://github.com/g-truc/glm.git
+[submodule "Ethereal/Vendor/ImGUI"]
+	path = Ethereal/Vendor/ImGUI
+	url = https://github.com/denisburshin/imgui.git
