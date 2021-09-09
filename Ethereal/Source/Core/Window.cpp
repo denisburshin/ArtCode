@@ -1,4 +1,4 @@
-#include <Ethereal/Window.h>
+#include <Core/Window.h>
 #include <Platform/Windows/WindowsWindow.h>
 
 namespace Ethereal

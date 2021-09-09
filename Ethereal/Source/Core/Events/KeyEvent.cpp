@@ -1,4 +1,4 @@
-#include <Ethereal/Events/KeyEvent.h>
+#include <Core/Events/KeyEvent.h>
 
 namespace Ethereal
 {

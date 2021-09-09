@@ -1,7 +1,7 @@
 #include <fstream>
 #include <iostream>
 
-#include <Ethereal/Render/Shader.h>
+#include <Core/Render/Shader.h>
 #include <glad/gl.h>
 
 #include <glm/gtc/type_ptr.hpp>

@@ -1,10 +1,12 @@
-#include <Ethereal/Render/Renderer.h>
+#include <Core/Render/Renderer.h>
 
 #include <glad/gl.h>
 
 namespace Ethereal
 {
 	Renderer::SceneData* Renderer::sceneData = new Renderer::SceneData;
+
+	Renderer::Statistics* Renderer::stats = new Renderer::Statistics;
 
 	void Renderer::BeginScene(OrthographicCamera& camera)
 	{
@@ -29,6 +31,8 @@ namespace Ethereal
 	void Renderer::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray)
 	{
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+		++stats->drawCalls;
 	}
 
 	void Renderer::SetClearColor(const glm::vec4& color)
@@ -36,8 +40,23 @@ namespace Ethereal
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
 
+	void Renderer::SetViewport(uint32_t width, uint32_t height)
+	{
+		glViewport(0, 0, width, height);
+	}
+
 	void Renderer::ClearColor()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
+	uint32_t Renderer::DrawCalls()
+	{
+		return stats->drawCalls;
+	}
+
+	void Renderer::ResetStatistic()
+	{
+		stats->drawCalls = 0;
 	}
 };

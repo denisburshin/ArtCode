@@ -1,4 +1,4 @@
-#include <Ethereal/Render/Buffer.h>
+#include <Core/Render/Buffer.h>
 
 #include <glad/gl.h>
 

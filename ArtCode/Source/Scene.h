@@ -1,11 +1,11 @@
 #pragma once
 #include <Ethereal.h>
 
-class Layer final : public Ethereal::IApplication
+class Scene final : public Ethereal::Layer
 {
 public:
-	Layer();
-	~Layer() = default;
+	Scene();
+	virtual ~Scene() = default;
 
 	void OnUpdate() override;
 	void OnEvent(Ethereal::Event& event) override;
@@ -14,12 +14,13 @@ public:
 
 	void OnGUIRender() override;
 
+	std::unique_ptr<Ethereal::Layer> GetLayer() const override;
+
 private:
 	std::shared_ptr<Ethereal::Shader> shader;
 	std::shared_ptr<Ethereal::VertexArray> VAO;
 	std::shared_ptr<Ethereal::VertexBuffer> VBO;
 	std::shared_ptr<Ethereal::IndexBuffer> IBO;
-
 	std::unique_ptr<Ethereal::Texture> texture;
 
 	Ethereal::OrthographicCamera camera;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Ethereal/Window.h>
+#include <Core/Window.h>
 #include <glfw/glfw3.h>
 
 namespace Ethereal

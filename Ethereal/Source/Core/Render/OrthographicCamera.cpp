@@ -1,4 +1,4 @@
-#include <Ethereal/Render/OrthographicCamera.h>
+#include <Core/Render/OrthographicCamera.h>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Ethereal

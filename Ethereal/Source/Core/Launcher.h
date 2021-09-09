@@ -1,7 +1,7 @@
 #pragma once
-#include <Ethereal/CoreApplication.h>
+#include <Core/Application.h>
 
-extern Ethereal::CoreApplication* Ethereal::CreateApplication();
+extern Ethereal::Application* Ethereal::CreateApplication();
 
 int main()
 {

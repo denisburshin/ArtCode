@@ -1,10 +1,10 @@
-#include <Layer.h>
+#include <Scene.h>
 #include <imgui.h>
-#include <misc/cpp/imgui_stdlib.h>
+#include <imgui_stdlib.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-Layer::Layer()
+Scene::Scene()
 	: camera(-1.6f, 1.6f, -0.9f, 0.9f), transform(0.0f), squareColor(1.0f), bgColor(0.0f), scale(1.0f)
 {
 	VAO.reset(Ethereal::VertexArray::Create());
@@ -40,7 +40,7 @@ Layer::Layer()
 	shader->UploadUniformInt("u_texture", 0);
 }
 
-void Layer::OnUpdate()
+void Scene::OnUpdate()
 {
 	Ethereal::Renderer::SetClearColor(bgColor);
 	Ethereal::Renderer::ClearColor();
@@ -56,13 +56,13 @@ void Layer::OnUpdate()
 	Ethereal::Renderer::EndScene();
 }
 
-void Layer::OnEvent(Ethereal::Event& event)
+void Scene::OnEvent(Ethereal::Event& event)
 {
 	Ethereal::EventDispatcher dispatcher(event);
-	dispatcher.Dispatch<Ethereal::KeyEvent>(std::bind(&Layer::OnKeyEvent, this, std::placeholders::_1));
+	dispatcher.Dispatch<Ethereal::KeyEvent>(std::bind(&Scene::OnKeyEvent, this, std::placeholders::_1));
 }
 
-bool Layer::OnKeyEvent(Ethereal::KeyEvent& event)
+bool Scene::OnKeyEvent(Ethereal::KeyEvent& event)
 {
 	int key = event.GetKey();
 	if (key == KEY_W)
@@ -77,7 +77,7 @@ bool Layer::OnKeyEvent(Ethereal::KeyEvent& event)
 	return false;
 }
 
-void Layer::OnGUIRender()
+void Scene::OnGUIRender()
 {
 	ImGui::Begin("Settings");
 	ImGui::Text("General");
@@ -85,15 +85,23 @@ void Layer::OnGUIRender()
 
 	ImGui::Text("Model");
 	ImGui::ColorEdit3("Color", glm::value_ptr(squareColor));
-	ImGui::DragFloat2("Scale", glm::value_ptr(scale));
+	ImGui::SliderFloat2("Scale", glm::value_ptr(scale), 0.0f, 2.0f);
 
 	if (ImGui::InputText("Texture", &tex_path, ImGuiInputTextFlags_EnterReturnsTrue))
 	{
-		texture.release();
+		texture.reset();
 		texture = Ethereal::Texture2D::Create(tex_path);
 		shader->Use();
 		shader->UploadUniformInt("u_texture", 0);
 	}
 
 	ImGui::End();
+
+	static bool show = true;
+	ImGui::ShowDemoWindow(&show);
+}
+
+std::unique_ptr<Ethereal::Layer> Scene::GetLayer() const
+{
+	return std::make_unique<Scene>();
 }

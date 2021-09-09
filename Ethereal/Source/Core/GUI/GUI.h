@@ -1,6 +1,6 @@
 #pragma once
-#include <Ethereal/IApplication.h>
-#include <Ethereal/Events/MouseEvent.h>
+#include <Core/Layer.h>
+#include <Core/Events/MouseEvent.h>
 
 namespace Ethereal
 {

@@ -1,5 +1,5 @@
 #pragma once
-#include <Ethereal/Events/EventSystem.h>
+#include <Core/Events/EventSystem.h>
 
 namespace Ethereal
 {

@@ -1,30 +1,17 @@
-#include <Ethereal/GUI/GUI.h>
+#include <Core/GUI/GUI.h>
 
 #include <imgui.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
-#include <Ethereal/CoreApplication.h>
+#include <Core/Application.h>
 
 namespace Ethereal
 {
 	GUI::GUI()
 	{
 		ImGui::CreateContext();
-		ImGui::StyleColorsLight();
 
-		ImGuiStyle& style = ImGui::GetStyle();
-
-		style.WindowRounding = 6.0f;
-		style.FrameRounding = 6.0f;
-		style.ChildRounding = 6.0f;
-		style.PopupRounding = 6.0f;
-
-		ImGuiIO& io = ImGui::GetIO();
-
-		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
-
-		auto app = CoreApplication::Get();
+		auto app = Application::Get();
 		auto window = static_cast<GLFWwindow*>(app->GetWindow().GetNativeWindow());
 
 		ImGui_ImplGlfw_InitForOpenGL(window, true);

@@ -106,4 +106,5 @@ project "ArtCode"
 	filter "configurations:Debug"
 		runtime "Debug"
 		symbols "On"
-		
+
+include "Editor"

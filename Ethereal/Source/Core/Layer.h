@@ -1,14 +1,14 @@
 #pragma once
 
-#include <Ethereal/Events/KeyEvent.h>
+#include <Core/Events/KeyEvent.h>
 
 namespace Ethereal
 {
-	class IApplication
+	class Layer
 	{
 	public:
-		IApplication() = default;
-		virtual ~IApplication() = default;
+		Layer() = default;
+		virtual ~Layer() = default;
 
 		virtual void OnUpdate() {};
 		virtual void OnEvent(Event& event) = 0;
@@ -16,5 +16,7 @@ namespace Ethereal
 		virtual bool OnKeyEvent(KeyEvent& event) = 0;
 
 		virtual void OnGUIRender() {};
+
+		virtual std::unique_ptr<Layer> GetLayer() const = 0;
 	};
 }

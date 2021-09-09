@@ -1,8 +1,8 @@
 #include <Platform/Windows/WindowsWindow.h>
-#include <Ethereal/Events/KeyCodes.h>
-#include <Ethereal/Events/ApplicationEvent.h>
-#include <Ethereal/Events/KeyEvent.h>
-#include <Ethereal/Events/MouseEvent.h>
+#include <Core/Events/KeyCodes.h>
+#include <Core/Events/ApplicationEvent.h>
+#include <Core/Events/KeyEvent.h>
+#include <Core/Events/MouseEvent.h>
 
 namespace Ethereal
 {
@@ -52,6 +52,14 @@ namespace Ethereal
 		glfwMakeContextCurrent(window);
 
 		glfwSetWindowUserPointer(window, &data);
+
+		glfwSetWindowSizeCallback(window, [](GLFWwindow* WindowsWindow, int width, int height) {
+			Data& data = *(static_cast<Data*>(glfwGetWindowUserPointer(WindowsWindow)));
+
+			ResizeEvent event(width, height);
+
+			data.callback(event);
+			});
 
 		glfwSetKeyCallback(window, [](GLFWwindow* WindowsWindow, int key, int scancode, int action, int mods)
 			{

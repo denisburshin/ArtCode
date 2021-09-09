@@ -1,4 +1,4 @@
-#include <Ethereal/Render/Texture.h>
+#include <Core/Render/Texture.h>
 #include <stbimage.h>
 
 #include <glad/gl.h>
