@@ -18,6 +18,8 @@ EditorLayer::EditorLayer()
 
 	io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 	io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+
+	framebuffer = Ethereal::Framebuffer::Create({ 640, 480 });
 }
 
 void EditorLayer::OnUpdate()
@@ -25,6 +27,10 @@ void EditorLayer::OnUpdate()
 	Ethereal::Renderer::ResetStatistic();
 	{
 		// Here we call draw functions
+		framebuffer->Use();
+		Ethereal::Renderer::SetClearColor({ 1.0f, 0.0f, 0.0f, 1.0f});
+		Ethereal::Renderer::ClearColor();
+		framebuffer->Unuse();
 	}
 }
 
@@ -47,6 +53,13 @@ void EditorLayer::OnGUIRender()
 	if (ImGui::Begin("Render Statistic"))
 	{
 		ImGui::BulletText("Draw Calls: %i", Ethereal::Renderer::DrawCalls());
+	}
+	ImGui::End();
+
+	if (ImGui::Begin("Viewport"))
+	{
+		auto colorAttachment = framebuffer->GetColorAttachment();
+		ImGui::Image((void*)colorAttachment, ImVec2(640, 480));
 	}
 	ImGui::End();
 }

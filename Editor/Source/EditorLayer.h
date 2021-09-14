@@ -16,4 +16,7 @@ public:
 	bool OnKeyEvent(Ethereal::KeyEvent& event) override;
 
 	std::unique_ptr<Layer> GetLayer() const override;
+
+private:
+	std::unique_ptr<Ethereal::Framebuffer> framebuffer;
 };
