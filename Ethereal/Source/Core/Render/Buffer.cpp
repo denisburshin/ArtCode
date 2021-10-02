@@ -1,14 +1,15 @@
 #include <Core/Render/Buffer.h>
 
 #include <glad/gl.h>
+#include <iostream>
 
 namespace Ethereal
 {
-	VertexBuffer::VertexBuffer(float* vertices, size_t size)
+	VertexBuffer::VertexBuffer(const float* vertices, const size_t size)
 	{
 		glCreateBuffers(1, &VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_DYNAMIC_DRAW);
 	}
 
 	VertexBuffer::~VertexBuffer()
@@ -37,17 +38,22 @@ namespace Ethereal
 		return new VertexBuffer(vertices, size);
 	}
 
+	VertexBuffer* VertexBuffer::Create(const std::vector<float>& vertices)
+	{
+		return new VertexBuffer(vertices.data(), vertices.size() * sizeof(float));
+	}
+
 	void VertexBuffer::SetLayout(const BufferLayout& layout)
 	{
 		this->layout = layout;
 	}
 
 	IndexBuffer::IndexBuffer(unsigned int* indices, size_t size)
-		: count(size / sizeof(unsigned int))
+		: count(size)
 	{
 		glCreateBuffers(1, &IBO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size * sizeof(unsigned int), indices, GL_DYNAMIC_DRAW);
 	}
 
 	IndexBuffer::~IndexBuffer()

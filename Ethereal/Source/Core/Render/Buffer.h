@@ -54,13 +54,14 @@ namespace Ethereal
 	{
 	public:
 
-		VertexBuffer(float* vertices, size_t size);
+		VertexBuffer(const float* vertices, const size_t size);
 		~VertexBuffer();
 
 		void Bind() const;
 		void Unbind() const;
 
 		static VertexBuffer* Create(float* vertices, size_t size);
+		static VertexBuffer* Create(const std::vector<float>& vertices);
 
 		void SetLayout(const BufferLayout& layout);
 		const BufferLayout& GetLayout() const;

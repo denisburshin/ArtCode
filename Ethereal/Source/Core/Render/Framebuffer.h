@@ -17,10 +17,14 @@ namespace Ethereal
 		void Use() const;
 		void Unuse() const;
 
+		void Resize(uint32_t width, uint32_t height);
+
 		uint32_t GetFramebuffer() const;
 		uint32_t GetColorAttachment() const;
 
 		static std::unique_ptr<Framebuffer> Create(const FramebufferSpecification& spec);
+	private:
+		void Invalidate();
 	private:
 		FramebufferSpecification specification;
 

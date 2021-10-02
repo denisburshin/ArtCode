@@ -8,7 +8,6 @@ namespace Ethereal
 	Texture2D::Texture2D(const std::string& path)
 	{
 		int w, h, channels;
-		stbi_set_flip_vertically_on_load(1);
 		auto data = stbi_load(path.c_str(), &w, &h, &channels, 0);
 
 		width = w;
@@ -35,9 +34,9 @@ namespace Ethereal
 		glBindTextureUnit(0, id);
 	}
 
-	std::unique_ptr<Texture2D> Texture2D::Create(const std::string& path)
+	Texture2D* Texture2D::Create(const std::string& path)
 	{
-		return std::make_unique<Texture2D>(path);
+		return new Texture2D(path);
 	}
 
 }

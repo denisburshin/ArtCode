@@ -27,8 +27,6 @@ namespace Ethereal
 
 	void Application::OnEvent(Event& e)
 	{
-		std::cout << Time::GetTime() << ": " << e.GetName() << std::endl;
-
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<CloseEvent>(std::bind(&Application::WindowClose, this, std::placeholders::_1));
 		dispatcher.Dispatch<ResizeEvent>(std::bind(&Application::Resize, this, std::placeholders::_1));
@@ -39,7 +37,6 @@ namespace Ethereal
 			if (e.handled)
 				break;
 		}
-
 	}
 
 	void Application::OnUpdate()
@@ -70,7 +67,7 @@ namespace Ethereal
 	bool Application::WindowClose(CloseEvent& e)
 	{
 		running = false;
-		return running;
+		return true;
 	}
 
 	void Application::Close()
@@ -90,15 +87,15 @@ namespace Ethereal
 		running = true;
 		while (running)
 		{
-			for (auto& layer : layers)
-				layer->OnUpdate();
-
 			gui->Begin();
 			{
 				for (auto& layer : layers)
 					layer->OnGUIRender();
 			}
 			gui->End();
+
+			for (auto& layer : layers)
+				layer->OnUpdate();
 
 			window->OnUpdate();
 		}

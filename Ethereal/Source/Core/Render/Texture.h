@@ -18,7 +18,7 @@ namespace Ethereal
 
 		void Bind() const override;
 
-		static std::unique_ptr<Texture2D> Create(const std::string& path);
+		static Texture2D* Create(const std::string& path);
 
 	private:
 		uint32_t width, height, id;
