@@ -47,6 +47,10 @@ namespace Ethereal
 	{
 		return colorAttachmentID;
 	}
+	const FramebufferSpecification& Framebuffer::GetSpecification() const
+	{
+		return specification;
+	}
 
 	std::unique_ptr<Framebuffer> Framebuffer::Create(const FramebufferSpecification& spec)
 	{

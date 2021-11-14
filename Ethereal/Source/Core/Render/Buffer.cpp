@@ -5,11 +5,17 @@
 
 namespace Ethereal
 {
+	VertexBuffer::VertexBuffer(uint32_t size)
+	{
+		glCreateBuffers(1, &VBO);
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+	}
 	VertexBuffer::VertexBuffer(const float* vertices, const size_t size)
 	{
 		glCreateBuffers(1, &VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_DYNAMIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
 	}
 
 	VertexBuffer::~VertexBuffer()
@@ -33,6 +39,11 @@ namespace Ethereal
 	}
 
 
+	VertexBuffer* VertexBuffer::Create(uint32_t size)
+	{
+		return new VertexBuffer(size);
+	}
+
 	VertexBuffer* VertexBuffer::Create(float* vertices, size_t size)
 	{
 		return new VertexBuffer(vertices, size);
@@ -43,17 +54,23 @@ namespace Ethereal
 		return new VertexBuffer(vertices.data(), vertices.size() * sizeof(float));
 	}
 
+	void VertexBuffer::SetData(const void* data, uint32_t size)
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data);
+	}
+
 	void VertexBuffer::SetLayout(const BufferLayout& layout)
 	{
 		this->layout = layout;
 	}
 
-	IndexBuffer::IndexBuffer(unsigned int* indices, size_t size)
+	IndexBuffer::IndexBuffer(uint32_t* indices, uint32_t size)
 		: count(size)
 	{
 		glCreateBuffers(1, &IBO);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size * sizeof(unsigned int), indices, GL_DYNAMIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size * sizeof(uint32_t), indices, GL_STATIC_DRAW);
 	}
 
 	IndexBuffer::~IndexBuffer()
@@ -71,7 +88,7 @@ namespace Ethereal
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
-	IndexBuffer* IndexBuffer::Create(unsigned int* indices, size_t size)
+	IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size)
 	{
 		return new IndexBuffer(indices, size);
 	}
@@ -119,11 +136,11 @@ namespace Ethereal
 		}
 	}
 
-	unsigned int ShaderDataTypeSize(ShaderDataType type)
+	uint32_t ShaderDataTypeSize(ShaderDataType type)
 	{
-		auto floatSize = sizeof(GL_FLOAT);
-		auto intSize = sizeof(GL_INT);
-		auto boolSize = sizeof(GL_BOOL);
+		uint32_t floatSize = sizeof(GL_FLOAT);
+		uint32_t intSize = sizeof(GL_INT);
+		uint32_t boolSize = sizeof(GL_BOOL);
 
 		switch (type)
 		{

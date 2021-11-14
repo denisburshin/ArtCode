@@ -4,55 +4,63 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <Core/Scene/SceneSerializer.h>
+#include <ImGuizmo.h>
+#include <Utility/Math.h>
+
 EditorLayer::EditorLayer()
-	: backgroundColor(1.0f), camera(-1.6f, 1.6f, -0.9f, 0.9f), transform(0.0f), scale(1.0f)
+	: backgroundColor(0.0f), controller(1280.0f / 720.0f)
 {
 	InterfacePreparation();
 
-	scene.vao.reset(Ethereal::VertexArray::Create());
-	
-	Quad quad;
-	scene.vertices.insert(scene.vertices.end(), quad.vertices.begin(), quad.vertices.end());
+	Ethereal::Renderer2D::Init();
 
-	scene.vbo.reset(Ethereal::VertexBuffer::Create(scene.vertices));
+	scene.reset(new Ethereal::Scene);
+#if 0
+	Ethereal::Entity square = scene->CreateEntity();
 
-	Ethereal::BufferLayout layout = {
-		{ Ethereal::ShaderDataType::Vec3f, "pos" },
-		{ Ethereal::ShaderDataType::Vec2f, "tex" }
-	};
+	square.AddComponent<Ethereal::SpriteComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
+	//square.AddComponent<Ethereal::TagComponent>("Square #1");
 
-	scene.vbo->SetLayout(layout);
-	scene.vao->AddVertexBuffer(scene.vbo);
+	Ethereal::Entity camera = scene->CreateEntity();
+	camera.AddComponent<Ethereal::CameraComponent>();
+	//camera.AddComponent<Ethereal::TagComponent>("Camera #1");
 
-	scene.ibo.reset(Ethereal::IndexBuffer::Create(quad.indices.data(), quad.indices.size()));
-	scene.vao->AddIndexBuffer(scene.ibo);
-
-	scene.texture.reset(Ethereal::Texture2D::Create("Assets/Textures/default.png"));
-
-	shader.reset(new Ethereal::Shader("Assets/Shaders/Texture.vert", "Assets/Shaders/Texture.frag"));
-	shader->Use();
-	shader->UploadUniformInt("u_texture", 0);
-
+	texture.reset(Ethereal::Texture2D::Create("Assets/Textures/default.png"));
+#endif
 	framebuffer = Ethereal::Framebuffer::Create({ 1280, 720 });
+	sceneHierarchy.SetContext(scene);
 }
 
 void EditorLayer::OnUpdate()
 {
 	Ethereal::Renderer::ResetStatistic();
 	{
+		if (Ethereal::FramebufferSpecification spec = framebuffer->GetSpecification();
+			viewportSize.x > 0.0f && viewportSize.y > 0.0f &&
+			(spec.width != viewportSize.x || spec.height != viewportSize.y))
+		{
+			framebuffer->Resize((uint32_t)viewportSize.x, (uint32_t)viewportSize.y);
+			scene->OnViewPortResize((uint32_t)viewportSize.x, (uint32_t)viewportSize.y);
+		}
 		// Here we call draw functions
 		framebuffer->Use();
+
+		controller.OnUpdate();
 
 		Ethereal::Renderer::SetClearColor(backgroundColor);
 		Ethereal::Renderer::ClearColor();
 
-		Ethereal::Renderer::BeginScene(camera);
+		//Ethereal::Renderer2D::BeginScene(controller.GetCamera());
+		
+		scene->OnUpdate();
+		//glm::mat4 scale = glm::scale(glm::identity<glm::mat4>(), this->scale);
 
-		glm::mat4 scale = glm::scale(glm::identity<glm::mat4>(), this->scale);
-
-		scene.texture->Bind();
-		Ethereal::Renderer::Submit(scene.vao, shader, glm::translate(glm::identity<glm::mat4>(), transform) * scale);
-		Ethereal::Renderer::EndScene();
+		//scene.texture->Bind();
+		//Ethereal::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.0f, 0.0f, 1.0f, 1.0f });
+		//Ethereal::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f });
+		//Ethereal::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f }, { 10.0f, 10.0f }, texture);
+		//Ethereal::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, 0.0f, texture);
 
 		framebuffer->Unuse();
 	}
@@ -64,8 +72,18 @@ void EditorLayer::OnGUIRender()
 
 	if (ImGui::BeginMainMenuBar())
 	{
-		if (ImGui::BeginMenu("Options"))
+		if (ImGui::BeginMenu("File"))
 		{
+			if (ImGui::MenuItem("Save"))
+			{
+				Ethereal::SceneSerializer serializer(scene);
+				serializer.Serialize("Assets/Scenes/Scene.eth");
+			}
+			if (ImGui::MenuItem("Load"))
+			{
+				Ethereal::SceneSerializer serializer(scene);
+				serializer.Deserialize("Assets/Scenes/Cube.eth");
+			}
 			if (ImGui::MenuItem("Exit"))
 				Ethereal::Application::Get()->Close();
 
@@ -74,56 +92,100 @@ void EditorLayer::OnGUIRender()
 		ImGui::EndMainMenuBar();
 	}
 
-	if (ImGui::Begin("Properties"))
+	/*if (ImGui::Begin("Properties"))
 	{
 		ImGui::Text("General");
 		ImGui::ColorEdit4("Background Color", glm::value_ptr(backgroundColor));
 
-		std::string texture_path;
-		ImGui::Text("Model");
-		ImGui::SliderFloat2("Scale", glm::value_ptr(scale), 0.0f, 2.0f);
-		if (ImGui::InputText("Texture", &texture_path, ImGuiInputTextFlags_EnterReturnsTrue))
-		{
-			scene.texture.reset(Ethereal::Texture2D::Create(texture_path));
-		}
+		//std::string texture_path;
+		//ImGui::Text("Model");
+		//ImGui::SliderFloat2("Scale", glm::value_ptr(scale), 0.0f, 2.0f);
+		//if (ImGui::InputText("Texture", &texture_path, ImGuiInputTextFlags_EnterReturnsTrue))
+		//{
+		//	scene.texture.reset(Ethereal::Texture2D::Create(texture_path));
+		//}
 
 	}
-	ImGui::End();
+	ImGui::End();*/
+
+	sceneHierarchy.OnGUIRender();
 
 	if (ImGui::Begin("Render Statistic"))
 	{
 		ImGui::BulletText("Draw Calls: %i", Ethereal::Renderer::DrawCalls());
+		ImGui::End();
 	}
-	ImGui::End();
 
 	if (ImGui::Begin("Viewport"))
 	{
 		auto panelSize = ImGui::GetContentRegionAvail();
-		framebuffer->Resize(panelSize.x, panelSize.y);
+		if (viewportSize != *((glm::vec2*)&panelSize))
+		{
+			framebuffer->Resize((uint32_t)panelSize.x, (uint32_t)panelSize.y);
+			viewportSize = { panelSize.x, panelSize.y };
+		}
 		auto colorAttachment = framebuffer->GetColorAttachment();
-		ImGui::Image((void*)colorAttachment, ImVec2(panelSize.x, panelSize.y));
+		ImGui::Image((void*)(uint64_t)colorAttachment, ImVec2(viewportSize.x, viewportSize.y), ImVec2(0, 1), ImVec2(1, 0));
+
+		//GIZMO
+		Ethereal::Entity selectedEntity = sceneHierarchy.GetSelectedEntity();
+		if (selectedEntity && currentGuizmo != -1)
+		{
+			ImGuizmo::SetOrthographic(false);
+			ImGuizmo::SetDrawlist();
+			float windowWidth = (float)ImGui::GetWindowWidth();
+			float windowHeight = (float)ImGui::GetWindowHeight();
+			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, windowWidth, windowHeight);
+
+			//CAMERA
+			auto ce = scene->GetPrimaryCameraEntity();
+			const auto& camera = ce.GetComponent<Ethereal::CameraComponent>().camera;
+			const glm::mat4& projection = camera.GetProjection();
+			glm::mat4 cv = glm::inverse(ce.GetComponent<Ethereal::TransformComponent>().GetTransform());
+
+			auto& tc = selectedEntity.GetComponent<Ethereal::TransformComponent>();
+			glm::mat4 transform = tc.GetTransform();
+			ImGuizmo::Manipulate(glm::value_ptr(cv), glm::value_ptr(projection),
+				(ImGuizmo::OPERATION)currentGuizmo, ImGuizmo::LOCAL, glm::value_ptr(transform));
+
+			if (ImGuizmo::IsUsing())
+			{
+				glm::vec3 tranlation, rotation, scale;
+				Ethereal::Utility::DecomposeTransform(transform, tranlation, rotation, scale);
+				
+				glm::vec3 deltaRotation = rotation - tc.Rotation;
+				tc.Translation = tranlation;
+				tc.Rotation += deltaRotation;
+				tc.Scale = scale;
+			}
+		}
+
+		ImGui::End();
 	}
-	ImGui::End();
 }
 
 void EditorLayer::OnEvent(Ethereal::Event& event)
 {
 	Ethereal::EventDispatcher dispatcher(event);
 	dispatcher.Dispatch<Ethereal::KeyEvent>(std::bind(&EditorLayer::OnKeyEvent, this, std::placeholders::_1));
+
+	controller.OnEvent(event);
 }
 
 bool EditorLayer::OnKeyEvent(Ethereal::KeyEvent& event)
 {
-	int key = event.GetKey();
-	if (key == KEY_W)
-		transform.y -= 0.05f;
-	else if (key == KEY_S)
-		transform.y += 0.05f;
-	else if (key == KEY_A)
-		transform.x -= 0.05f;
-	else if (key == KEY_D)
-		transform.x += 0.05f;
-
+	if (Ethereal::Input::IsKeyPressed(Key::A))
+	{
+		currentGuizmo = ImGuizmo::OPERATION::TRANSLATE;
+	}
+	else if (Ethereal::Input::IsKeyPressed(Key::W))
+	{
+		currentGuizmo = ImGuizmo::OPERATION::ROTATE;
+	}
+	else if (Ethereal::Input::IsKeyPressed(Key::S))
+	{
+		currentGuizmo = ImGuizmo::OPERATION::SCALE;
+	}
 	return true;
 }
 
@@ -134,7 +196,7 @@ std::unique_ptr<Ethereal::Layer> EditorLayer::GetLayer() const
 
 void EditorLayer::InterfacePreparation() const
 {
-	ImGui::StyleColorsLight();
+	ImGui::StyleColorsDark();
 
 	ImGuiStyle& style = ImGui::GetStyle();
 

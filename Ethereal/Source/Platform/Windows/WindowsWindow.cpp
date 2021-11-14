@@ -93,6 +93,13 @@ namespace Ethereal
 			}
 		});
 
+		glfwSetScrollCallback(window, [](GLFWwindow* WindowsWindow, double xOffset, double yOffset)
+			{
+				Data& data = *(static_cast<Data*>(glfwGetWindowUserPointer(WindowsWindow)));
+				MouseScrollEvent event(xOffset, yOffset);
+				data.callback(event);
+			});
+
 		glfwSetWindowCloseCallback(window, [](GLFWwindow* WindowsWindow)
 			{
 				Data& data = *(static_cast<Data*>(glfwGetWindowUserPointer(WindowsWindow)));

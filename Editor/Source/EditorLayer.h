@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Ethereal.h>
+#include <Panels/SceneHierarchy.h>
 
 class EditorLayer final : public Ethereal::Layer
 {
@@ -21,38 +22,19 @@ private:
 	void InterfacePreparation() const;
 private:
 	std::unique_ptr<Ethereal::Framebuffer> framebuffer;
-	std::shared_ptr<Ethereal::Shader> shader;
-	
-	Ethereal::OrthographicCamera camera;
-	glm::vec3 transform, scale;
+	std::shared_ptr<Ethereal::Texture2D> texture;
+	Ethereal::CameraController controller;
+
+	Ethereal::Entity camera;
+
+	std::shared_ptr<Ethereal::Scene> scene;
 
 	glm::vec4 backgroundColor;
+	glm::vec2 viewportSize;
 
-	struct SceneData
-	{
-		std::shared_ptr<Ethereal::VertexArray> vao;
-		std::shared_ptr<Ethereal::VertexBuffer> vbo;
-		std::shared_ptr<Ethereal::IndexBuffer> ibo;
-		std::shared_ptr<Ethereal::Texture2D> texture;
+	//Guizmo stuff
+	int currentGuizmo = -1;
 
-		std::vector<float> vertices;
-	} scene;
-
-	struct Quad
-	{
-		Quad()
-		{
-			vertices = {
-				-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
-				-0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
-				0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
-				0.5f, 0.5f, 0.5f, 1.0f, 1.0f
-			};
-
-			indices = { 0, 1, 2, 2, 3, 1 };
-		}
-
-		std::vector<float> vertices;
-		std::vector<unsigned int> indices;
-	};
+	//Panels
+	Ethereal::SceneHierarchy sceneHierarchy;
 };

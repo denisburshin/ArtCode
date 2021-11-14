@@ -12,6 +12,8 @@ namespace Ethereal
 
 		void UploadUniformMat4(const std::string& uniform, const glm::mat4& matrix);
 		void UploadUniformVec3(const std::string& uniform, const glm::vec3& vector);
+		void SetIntArray(const std::string& uniform, int* values, uint32_t count);
+		void SetVec4(const std::string& uniform, const glm::vec4& vector);
 		void UploadUniformInt(const std::string& uniform, const int value);
 
 		void Use() const;

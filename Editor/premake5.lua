@@ -17,7 +17,9 @@ project "Editor"
 		"%{wks.location}/Ethereal",
 		"%{wks.location}/Ethereal/Source",
 		"%{wks.location}/%{includedir.glm}",
-		"%{wks.location}/%{includedir.imgui}"
+		"%{wks.location}/%{includedir.imgui}",
+		"%{wks.location}/%{includedir.entt}",
+		"%{wks.location}/%{includedir.guizmo}"
 	}
 
 	links

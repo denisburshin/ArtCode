@@ -14,10 +14,14 @@ includedir["glad"] = "Ethereal/Vendor/GLAD/include"
 includedir["imgui"] = "Ethereal/Vendor/ImGUI"
 includedir["glm"] = "Ethereal/Vendor/GLM"
 includedir["stb"] = "Ethereal/Vendor/STB"
+includedir["entt"] = "Ethereal/Vendor/ENTT/include"
+includedir["yaml"] = "Ethereal/Vendor/YAML/include"
+includedir["guizmo"] = "Ethereal/Vendor/ImGUIZMO"
 
 include "Ethereal/Vendor/GLFW"
 include "Ethereal/Vendor/GLAD"
 include "Ethereal/Vendor/ImGUI"
+include "Ethereal/Vendor/YAML"
 
 project "Ethereal"
 	location "Ethereal"
@@ -35,7 +39,9 @@ project "Ethereal"
 		"%{prj.name}/Vendor/GLM/glm/**.hpp",
 		"%{prj.name}/Vendor/GLM/glm/**.inl",
 		"%{prj.name}/Vendor/STB/**.h",
-		"%{prj.name}/Vendor/STB/**.cpp"
+		"%{prj.name}/Vendor/STB/**.cpp",
+		"%{prj.name}/Vendor/ImGUIZMO/ImGuizmo.h",
+		"%{prj.name}/Vendor/ImGUIZMO/ImGuizmo.cpp"
 	}
 
 	removefiles
@@ -50,7 +56,10 @@ project "Ethereal"
 		"%{includedir.glad}",
 		"%{includedir.glm}",
 		"%{includedir.imgui}",
-		"%{includedir.stb}"
+		"%{includedir.stb}",
+		"%{includedir.entt}",
+		"%{includedir.yaml}",
+		"%{includedir.guizmo}"
 	}
 
 	links
@@ -58,6 +67,7 @@ project "Ethereal"
 		"GLFW",
 		"GLAD",
 		"ImGUI",
+		"yaml-cpp",
 		"opengl32.lib"
 	}
 
@@ -90,7 +100,8 @@ project "ArtCode"
 		"Ethereal/Source",
 		"%{prj.name}/Source",
 		"%{includedir.glm}",
-		"%{includedir.imgui}"
+		"%{includedir.imgui}",
+		"%{includedir.entt}"
 	}
 
 	links

@@ -12,7 +12,7 @@ enum class Mouse : int
 	MiddleClick
 };
 
-enum class Key
+enum class Key : int
 {
 	A = 65,
 	D = 68,

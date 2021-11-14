@@ -9,7 +9,7 @@ namespace Ethereal
 	{
 		Close, Resize,
 		KeyPressed, KeyReleased,
-		MouseMove, MousePressed, MouseReleased
+		MouseMove, MousePressed, MouseReleased, MouseScrolled
 	};
 
 	class Event

@@ -116,5 +116,44 @@ namespace Ethereal
 		int button, mods;
 	};
 
+
+	class MouseScrollEvent : public Event
+	{
+	public:
+		MouseScrollEvent(float xOffset, float yOffset)
+			: xOffset(xOffset), yOffset(yOffset)
+		{
+
+		}
+
+		virtual ~MouseScrollEvent() = default;
+
+		static EventType GetStaticType()
+		{
+			return EventType::MouseScrolled;
+		}
+
+		EventType GetType() const override
+		{
+			return GetStaticType();
+		}
+
+		std::string GetName() const override
+		{
+			return "Mouse scroll event";
+		}
+
+		inline float GetXOffset() const
+		{
+			return xOffset;
+		}
+		inline float GetYOffset() const
+		{
+			return yOffset;
+		}
+
+	private:
+		float xOffset, yOffset;
+	};
 }
 

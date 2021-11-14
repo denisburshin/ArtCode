@@ -5,6 +5,8 @@
 #include <backends/imgui_impl_opengl3.h>
 #include <Core/Application.h>
 
+#include <ImGuizmo.h>
+
 namespace Ethereal
 {
 	GUI::GUI()
@@ -36,8 +38,9 @@ namespace Ethereal
 	{
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
-
 		ImGui::NewFrame();
+
+		ImGuizmo::BeginFrame();
 	}
 
 	void GUI::End()

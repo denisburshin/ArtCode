@@ -15,7 +15,7 @@ namespace Ethereal
 
 		static void EndScene();
 
-		static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray);
+		static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, uint32_t indexCount = 0);
 
 
 		static void SetClearColor(const glm::vec4& color);

@@ -22,6 +22,8 @@ namespace Ethereal
 		uint32_t GetFramebuffer() const;
 		uint32_t GetColorAttachment() const;
 
+		const FramebufferSpecification& GetSpecification() const;
+
 		static std::unique_ptr<Framebuffer> Create(const FramebufferSpecification& spec);
 	private:
 		void Invalidate();

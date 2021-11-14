@@ -15,9 +15,9 @@ namespace Ethereal
 		Single = 1, Vec2, Vec3, Vec4, Mat3 = 3 * 3, Mat4 = 4 * 4
 	};
 
-	unsigned int ShaderDataTypeSize(ShaderDataType type);
+	uint32_t ShaderDataTypeSize(ShaderDataType type);
 
-	unsigned int ShaderDataTypeToBase(ShaderDataType type);
+	uint32_t ShaderDataTypeToBase(ShaderDataType type);
 
 	struct BufferElement
 	{
@@ -54,14 +54,18 @@ namespace Ethereal
 	{
 	public:
 
+		VertexBuffer(uint32_t size);
 		VertexBuffer(const float* vertices, const size_t size);
 		~VertexBuffer();
 
 		void Bind() const;
 		void Unbind() const;
 
+		static VertexBuffer* Create(uint32_t size);
 		static VertexBuffer* Create(float* vertices, size_t size);
 		static VertexBuffer* Create(const std::vector<float>& vertices);
+
+		void SetData(const void* data, uint32_t size);
 
 		void SetLayout(const BufferLayout& layout);
 		const BufferLayout& GetLayout() const;
@@ -76,7 +80,7 @@ namespace Ethereal
 	{
 	public:
 
-		IndexBuffer(unsigned int* indices, size_t size);
+		IndexBuffer(uint32_t* indices, uint32_t size);
 
 		~IndexBuffer();
 
@@ -85,11 +89,11 @@ namespace Ethereal
 
 		unsigned int GetCount() const;
 
-		static IndexBuffer* Create(unsigned int* indices, size_t size);
+		static IndexBuffer* Create(uint32_t* indices, uint32_t size);
 
 	private:
 		unsigned int IBO;
-		unsigned int count;
+		uint32_t count;
 	};
 
 	class VertexArray
