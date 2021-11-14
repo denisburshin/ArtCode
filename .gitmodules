@@ -7,3 +7,6 @@
 [submodule "Ethereal/Vendor/ImGUI"]
 	path = Ethereal/Vendor/ImGUI
 	url = https://github.com/denisburshin/imgui.git
+[submodule "Ethereal/Vendor/ImGUIZMO"]
+	path = Ethereal/Vendor/ImGUIZMO
+	url = https://github.com/denisburshin/ImGuizmo.git
