@@ -59,6 +59,19 @@ namespace Ethereal
 
 	}
 
+	void Scene::OnUpdateEditor(EditorCamera& editorCamera)
+	{
+		Renderer2D::BeginScene(editorCamera);
+
+		auto group = registry.group<TransformComponent>(entt::get<SpriteComponent>);
+		for (auto& entity : group)
+		{
+			auto [transform, sprite] = group.get<TransformComponent, SpriteComponent>(entity);
+			Renderer2D::DrawEntity(transform.GetTransform(), sprite, (int)entity);
+		}
+		Renderer2D::EndScene();
+	}
+
 	void Scene::OnViewPortResize(uint32_t width, uint32_t height)
 	{
 		viewPortWidth = width;

@@ -59,7 +59,7 @@ project "Ethereal"
 		"%{includedir.stb}",
 		"%{includedir.entt}",
 		"%{includedir.yaml}",
-		"%{includedir.guizmo}"
+		"%{includedir.guizmo}",
 	}
 
 	links

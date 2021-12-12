@@ -4,6 +4,7 @@
 #include <imgui_internal.h>
 #include <imgui_stdlib.h>
 #include <glm/gtc/type_ptr.hpp>
+#include <Utility/FileDialog.h>
 
 namespace Ethereal
 {
@@ -67,6 +68,7 @@ namespace Ethereal
 	void SceneHierarchy::SetContext(const std::shared_ptr<Scene>& scene)
 	{
 		context = scene;
+		selection = {};
 	}
 
 	void SceneHierarchy::DrawEntityNode(Entity entity)
@@ -188,6 +190,13 @@ namespace Ethereal
 		{
 			auto& sc = entity.GetComponent<SpriteComponent>();
 			ImGui::ColorEdit4("Color", glm::value_ptr(sc.color));
+			
+			if (ImGui::Button("Texture"))
+			{
+				auto texture_path = FileDialog::OpenFile("PNG File(*.png)\0*.png\0");
+				if (!texture_path.empty())				
+					sc.texture.reset(Ethereal::Texture2D::Create(texture_path));
+			}
 		}
 	}
 	void SceneHierarchy::OnGUIRender()
@@ -239,6 +248,10 @@ namespace Ethereal
 
 		}
 		ImGui::End();
+	}
+	void SceneHierarchy::SetSelectedEntity(Entity entity)
+	{
+		selection = entity;
 	}
 	Entity SceneHierarchy::GetSelectedEntity() const
 	{

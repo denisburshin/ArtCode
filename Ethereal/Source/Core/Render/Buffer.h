@@ -7,7 +7,7 @@ namespace Ethereal
 {
 	enum class ShaderDataType
 	{
-		Float, Vec2f, Vec3f, Vec4f, Mat3f, Mat4f, Int, Vec2i, Vec3i, Vec4i, Mat3i, Mat4i, Bool
+		Float, Vec2f, Vec3f, Vec4f, Mat3f, Mat4f, Int, Vec2i, Vec3i, Vec4i, Bool
 	};
 
 	enum class DataType

@@ -96,7 +96,7 @@ namespace Ethereal
 		glfwSetScrollCallback(window, [](GLFWwindow* WindowsWindow, double xOffset, double yOffset)
 			{
 				Data& data = *(static_cast<Data*>(glfwGetWindowUserPointer(WindowsWindow)));
-				MouseScrollEvent event(xOffset, yOffset);
+				MouseScrollEvent event((float)xOffset, (float)yOffset);
 				data.callback(event);
 			});
 

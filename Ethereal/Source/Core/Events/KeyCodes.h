@@ -17,7 +17,10 @@ enum class Key : int
 	A = 65,
 	D = 68,
 	S = 83,
-	W = 87
+	W = 87,
+	LeftCtrl = 341,
+	LeftAlt = 342
+
 };
 
 

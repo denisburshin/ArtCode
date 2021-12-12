@@ -13,6 +13,7 @@ namespace Ethereal
 
 		void OnGUIRender();
 
+		void SetSelectedEntity(Entity entity);
 		Entity GetSelectedEntity() const;
 	private:
 		void DrawEntityNode(Entity entity);

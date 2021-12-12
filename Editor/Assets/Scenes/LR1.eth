@@ -1,0 +1,11 @@
+Scene: Name
+Entities:
+  - Entity: 1234567890
+    TagComponent:
+      Tag: Untitled Entity
+    TransformComponent:
+      Translation: [-1.47749329, 0.668437898, -0.0122891245]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    SpriteComponent:
+      Color: [1, 1, 1, 1]

@@ -4,10 +4,10 @@
 #include <Core/Scene/ScriptableEntity.h>
 
 #include <glm/gtx/quaternion.hpp>
+#include <Core/Render/Texture.h>
 
 namespace Ethereal
 {
-
 	struct TagComponent
 	{
 		std::string tag;
@@ -52,21 +52,14 @@ namespace Ethereal
 	struct SpriteComponent
 	{
 		glm::vec4 color{ 1.0f, 1.0f, 1.0f, 1.0f };
+		std::shared_ptr<Texture2D> texture;
+
+		float tilingFactor = 1.0f; // TODO: Implement in Renderer
 
 		SpriteComponent() = default;
 		SpriteComponent(const SpriteComponent&) = default;
 		SpriteComponent(const glm::vec4& color)
 			: color(color) {}
-
-		operator glm::vec4& ()
-		{
-			return color;
-		}
-
-		operator const glm::vec4& () const
-		{
-			return color;
-		}
 	};
 
 	struct NativeScriptComponent

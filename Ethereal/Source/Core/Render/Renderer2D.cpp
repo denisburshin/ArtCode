@@ -11,6 +11,9 @@ namespace Ethereal
 		glm::vec4 color;
 		glm::vec2 texCoord;
 		float texIndex;
+
+		//Editor only
+		int entityId;
 	};
 
 	struct Storage2D
@@ -40,6 +43,7 @@ namespace Ethereal
 
 	void Renderer2D::Init()
 	{
+		
 		storage = new Storage2D;
 
 		storage->VAO.reset(VertexArray::Create());
@@ -54,10 +58,11 @@ namespace Ethereal
 		storage->VBO.reset(VertexBuffer::Create(storage->MaxVertices * sizeof(QuadVertex)));
 
 		Ethereal::BufferLayout layout = {
-			{ Ethereal::ShaderDataType::Vec3f, "pos" },
-			{ Ethereal::ShaderDataType::Vec4f, "color"},
-			{ Ethereal::ShaderDataType::Vec2f, "tex" },
-			{ Ethereal::ShaderDataType::Float, "texIndex"}
+			{ Ethereal::ShaderDataType::Vec3f, "pos"       },
+			{ Ethereal::ShaderDataType::Vec4f, "color"     },
+			{ Ethereal::ShaderDataType::Vec2f, "tex"       },
+			{ Ethereal::ShaderDataType::Float, "texIndex"  },
+			{ Ethereal::ShaderDataType::Int,   "entity_id" }
 		};
 
 		storage->VBO->SetLayout(layout);
@@ -112,25 +117,8 @@ namespace Ethereal
 		storage->quadVertexPositions[3] = { -0.5f,  0.5f, 0.0f, 1.0f };
 	}
 
-	void Renderer2D::Shutdown()
-	{
-		delete storage;
-	}
-
-	void Renderer2D::BeginScene(const Camera& camera, const glm::mat4& transform)
-	{
-		glm::mat4 viewProjection = camera.GetProjection() * glm::inverse(transform);
-
-		storage->shader->Use();
-		storage->shader->UploadUniformMat4("u_ProjectionView", viewProjection);
-		storage->shader->UploadUniformMat4("u_ModelMatrix", glm::mat4(1.0f));
-
-		storage->indexCount = 0;
-		storage->quadVertexBufferPtr = storage->quadVertexBufferBase;
-
-		storage->TextureSlotIndex = 1;
-	}
-
+#pragma region OLD RENDER PATH
+#if 0
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
 		storage->shader->Use();
@@ -141,20 +129,6 @@ namespace Ethereal
 		storage->quadVertexBufferPtr = storage->quadVertexBufferBase;
 
 		storage->TextureSlotIndex = 1;
-	}
-
-	void Renderer2D::EndScene()
-	{
-		uint32_t dataSize = (uint8_t*)storage->quadVertexBufferPtr - (uint8_t*)storage->quadVertexBufferBase;
-
-		storage->VBO->SetData(storage->quadVertexBufferBase, dataSize);
-
-		for (uint32_t i = 0; i < storage->TextureSlotIndex; ++i)
-		{
-			storage->TextureSlots[i]->Bind(i);
-		}
-
-		Renderer::DrawIndexed(storage->VAO, storage->indexCount);
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)
@@ -171,9 +145,9 @@ namespace Ethereal
 
 		/*storage->shader->SetVec4("u_color", color);
 
-		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * 
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) *
 			glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
-		
+
 		storage->shader->UploadUniformMat4("u_ModelMatrix", transform);
 
 		storage->VAO->Bind();
@@ -211,7 +185,6 @@ namespace Ethereal
 	{
 		DrawRotatedQuad({ position.x, position.y, 0.0f }, size, rotation, texture);
 	}
-
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, float rotation, std::shared_ptr<Texture2D>& texture)
 	{
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
@@ -221,7 +194,51 @@ namespace Ethereal
 		DrawQuad(transform, texture);
 	}
 
-	void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& color)
+#endif
+#pragma endregion
+
+	void Renderer2D::Shutdown()
+	{
+		delete storage;
+	}
+
+	void Renderer2D::BeginScene(const Camera& camera, const glm::mat4& transform)
+	{
+		glm::mat4 viewProjection = camera.GetProjection() * glm::inverse(transform);
+
+		storage->shader->Use();
+		storage->shader->UploadUniformMat4("u_ProjectionView", viewProjection);
+		storage->shader->UploadUniformMat4("u_ModelMatrix", glm::mat4(1.0f));
+
+		storage->indexCount = 0;
+		storage->quadVertexBufferPtr = storage->quadVertexBufferBase;
+
+		storage->TextureSlotIndex = 1;
+	}
+	void Renderer2D::BeginScene(const EditorCamera& camera)
+	{
+		glm::mat4 viewProjection = camera.GetViewProjection();
+
+		storage->shader->Use();
+		storage->shader->UploadUniformMat4("u_ProjectionView", viewProjection);
+		storage->shader->UploadUniformMat4("u_ModelMatrix", glm::mat4(1.0f));
+
+		storage->indexCount = 0;
+		storage->quadVertexBufferPtr = storage->quadVertexBufferBase;
+
+		storage->TextureSlotIndex = 1;
+	}
+
+
+	void Renderer2D::DrawEntity(const glm::mat4& transform, const SpriteComponent& sc, int entity)
+	{
+		if (sc.texture)
+			DrawQuad(transform, sc.texture, sc.color, sc.tilingFactor, entity);
+		else
+			DrawQuad(transform, sc.color, entity);
+	}
+
+	void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& color, int entity)
 	{
 		const size_t quadVertexCount = 4;
 		const glm::vec2  textureCoords[] = {
@@ -238,13 +255,13 @@ namespace Ethereal
 			storage->quadVertexBufferPtr->color = color;
 			storage->quadVertexBufferPtr->texCoord = textureCoords[i];
 			storage->quadVertexBufferPtr->texIndex = textureIndex;
+			storage->quadVertexBufferPtr->entityId = entity;
 			++storage->quadVertexBufferPtr;
 		}
 
 		storage->indexCount += 6;
 	}
-	
-	void Renderer2D::DrawQuad(const glm::mat4& transform, std::shared_ptr<Texture2D>& texture)
+	void Renderer2D::DrawQuad(const glm::mat4& transform, const std::shared_ptr<Texture2D>& texture, const glm::vec4& color, const float tiling, int entity)
 	{
 		const size_t quadVertexCount = 4;
 		const glm::vec2  textureCoords[] = { 
@@ -253,7 +270,6 @@ namespace Ethereal
 			{1.0f, 1.0f},
 			{0.0f, 1.0f} 
 		};
-		const glm::vec4 color = { 1.0f, 1.0f, 1.0f, 1.0f };
 
 		float textureIndex = 0.0f;
 
@@ -279,8 +295,24 @@ namespace Ethereal
 			storage->quadVertexBufferPtr->color = color;
 			storage->quadVertexBufferPtr->texCoord = textureCoords[i];
 			storage->quadVertexBufferPtr->texIndex = textureIndex;
+			storage->quadVertexBufferPtr->entityId = entity;
 			++storage->quadVertexBufferPtr;
 		}
 		storage->indexCount += 6;
 	}
+
+	void Renderer2D::EndScene()
+	{
+		uint32_t dataSize = (uint8_t*)storage->quadVertexBufferPtr - (uint8_t*)storage->quadVertexBufferBase;
+
+		storage->VBO->SetData(storage->quadVertexBufferBase, dataSize);
+
+		for (uint32_t i = 0; i < storage->TextureSlotIndex; ++i)
+		{
+			storage->TextureSlots[i]->Bind(i);
+		}
+
+		Renderer::DrawIndexed(storage->VAO, storage->indexCount);
+	}
+
 };

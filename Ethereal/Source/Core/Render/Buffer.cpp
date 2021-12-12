@@ -154,8 +154,8 @@ namespace Ethereal
 		case ShaderDataType::Vec2i: return intSize * 2;
 		case ShaderDataType::Vec3i: return intSize * 3;
 		case ShaderDataType::Vec4i: return intSize * 4;
-		case ShaderDataType::Mat3i: return intSize * 3 * 3;
-		case ShaderDataType::Mat4i: return intSize * 4 * 4;
+		//case ShaderDataType::Mat3i: return intSize * 3 * 3;
+		//case ShaderDataType::Mat4i: return intSize * 4 * 4;
 		case ShaderDataType::Bool:  return boolSize;
 		default: return 0;
 		}
@@ -174,9 +174,9 @@ namespace Ethereal
 		case ShaderDataType::Int:
 		case ShaderDataType::Vec2i:
 		case ShaderDataType::Vec3i:
-		case ShaderDataType::Vec4i:
-		case ShaderDataType::Mat3i:
-		case ShaderDataType::Mat4i: return GL_INT;
+		case ShaderDataType::Vec4i:return GL_INT;
+		//case ShaderDataType::Mat3i:
+		//case ShaderDataType::Mat4i: return GL_INT;
 		case ShaderDataType::Bool:  return GL_BOOL;
 		default: return GL_ZERO;
 		}
@@ -202,8 +202,8 @@ namespace Ethereal
 		case ShaderDataType::Vec2i: return 2;
 		case ShaderDataType::Vec3i:	return 3;
 		case ShaderDataType::Vec4i: return 4;
-		case ShaderDataType::Mat3i: return 3 * 3;
-		case ShaderDataType::Mat4i: return 4 * 4;
+		//case ShaderDataType::Mat3i: return 3 * 3;
+		//case ShaderDataType::Mat4i: return 4 * 4;
 		case ShaderDataType::Bool:  return 1;
 		default: return 0;
 		}
@@ -233,13 +233,37 @@ namespace Ethereal
 		auto layout = vBuffer->GetLayout();
 		for (auto& element : layout)
 		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index, element.GetComponentCount(),
-				ShaderDataTypeToBase(element._type),
-				element._normalized,
-				layout.GetStride(),
-				(const void*)element.offset);
-			++index;
+			switch (element._type)
+			{
+			case ShaderDataType::Float:
+			case ShaderDataType::Vec2f:
+			case ShaderDataType::Vec3f:
+			case ShaderDataType::Vec4f:
+			{
+				auto count = element.GetComponentCount();
+				glEnableVertexAttribArray(index);
+				glVertexAttribPointer(index, count, ShaderDataTypeToBase(element._type),
+					element._normalized, layout.GetStride(), (const void*)element.offset);
+				++index;
+				break;
+			}
+			case ShaderDataType::Bool:
+			case ShaderDataType::Int:
+			case ShaderDataType::Vec2i:
+			case ShaderDataType::Vec3i:
+			case ShaderDataType::Vec4i:
+			{
+				auto count = element.GetComponentCount();
+				glEnableVertexAttribArray(index);
+				glVertexAttribIPointer(index, count, ShaderDataTypeToBase(element._type),
+					 layout.GetStride(), (const void*)element.offset);
+				++index;
+				break;
+			}
+			default:
+				break;
+			}
+			
 		}
 		vBuffers.push_back(vBuffer);
 	}

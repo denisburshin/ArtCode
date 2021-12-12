@@ -17,7 +17,6 @@ namespace Ethereal
 
 		static void DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, uint32_t indexCount = 0);
 
-
 		static void SetClearColor(const glm::vec4& color);
 
 		static void SetViewport(uint32_t width, uint32_t height);

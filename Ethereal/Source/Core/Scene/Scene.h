@@ -1,6 +1,7 @@
 #pragma once
 
 #include <entt.hpp>
+#include <Core/Render/EditorCamera.h>
 
 namespace Ethereal
 {
@@ -13,6 +14,7 @@ namespace Ethereal
 		~Scene() = default;
 
 		void OnUpdate();
+		void OnUpdateEditor(EditorCamera& editorCamera);
 		void OnViewPortResize(uint32_t width, uint32_t height);
 		
 		Entity CreateEntity(std::string& name = std::string("Untitled Entity"));
